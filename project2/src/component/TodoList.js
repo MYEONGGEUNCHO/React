@@ -1,8 +1,12 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useContext } from 'react';
 import TodoItem from './TodoItem';
 import './TodoList.css';
+import { TodoStateContext } from '../App';
 
-const TodoList = ({ todo, onUpdate, onDelete }) => {
+const TodoList = () => {
+    // const storeDate = useContext(TodoStateContext);
+    // console.log(storeDate);
+    const todo = useContext(TodoStateContext);
     const [search, setSearch] = useState('');
     const onChangeSearch = (e) => {
         setSearch(e.target.value);
@@ -44,15 +48,15 @@ const TodoList = ({ todo, onUpdate, onDelete }) => {
             />
             <div className="list_wrapper">
                 {getSearchResult().map((it) => (
-                    <TodoItem
-                        key={it.id}
-                        {...it}
-                        onUpdate={onUpdate}
-                        onDelete={onDelete}
-                    />
+                    <TodoItem key={it.id} {...it} />
                 ))}
             </div>
         </div>
     );
 };
+
+// TodoList.defaultProps = {
+//     todo: [],
+// };
+
 export default TodoList;
